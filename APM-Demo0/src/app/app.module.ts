@@ -19,6 +19,11 @@ import { UserModule } from "./user/user.module";
 
 import { StoreModule } from "@ngrx/store";
 
+/*Dev Tools */
+
+import { StoreDevtoolsModule } from "@ngrx/store-devtools";
+import { environment } from "src/environments/environment";
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -26,7 +31,12 @@ import { StoreModule } from "@ngrx/store";
     HttpClientInMemoryWebApiModule.forRoot(ProductData),
     UserModule,
     AppRoutingModule,
-    StoreModule.forRoot({})
+    StoreModule.forRoot({}),
+    StoreDevtoolsModule.instrument({
+      name: "APM Ngrx Demo",
+      maxAge: 25,
+      logOnly: environment.production
+    })
   ],
   declarations: [
     AppComponent,
