@@ -1,9 +1,19 @@
+import { Product } from "../product";
+
+export interface ProductState {
+  showProductCode: boolean;
+  currentProduct: Product;
+  products: Product[];
+}
+
 export function reducer(state, action) {
-  console.log(JSON.stringify(state));
-  console.log(action.payload);
   switch (action.type) {
     case "TOGGLE_PRODUCT_CODE": {
-      return { ...state, showProductCode: action.payload };
+      return {
+        ...state,
+        showProductCode: action.payload,
+        myFavoriteMovie: "LOTR"
+      };
     }
 
     default:
