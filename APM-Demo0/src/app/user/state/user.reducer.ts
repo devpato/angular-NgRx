@@ -1,6 +1,7 @@
 import { User } from "../user";
 import * as fromRoot from "../../state/app.state";
 import { createFeatureSelector, createSelector } from "@ngrx/store";
+import { UserActions, UserActionTypes } from "./user.actions";
 
 export interface State extends fromRoot.State {
   user: UserState;
@@ -23,9 +24,9 @@ export const getUserMaskCode = createSelector(
   state => state.maskUser //proyector function
 );
 
-export function reducer(state = initialState, action): UserState {
+export function reducer(state = initialState, action: UserActions): UserState {
   switch (action.type) {
-    case "TOGGLE_MASK_USER": {
+    case UserActionTypes.MaskUserName: {
       return {
         ...state,
         maskUser: action.payload
