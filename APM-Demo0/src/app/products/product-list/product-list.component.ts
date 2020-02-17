@@ -24,6 +24,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   selectedProduct: Product | null;
   componentActive = true;
   products$: Observable<Product[]>;
+  errorMessage$: Observable<string>;
 
   constructor(
     private productService: ProductService,
@@ -39,7 +40,13 @@ export class ProductListComponent implements OnInit, OnDestroy {
       this.selectedProduct = cp;
     });
 
+    this.errorMessage$ = this.store.pipe(select(fromProduct.getError));
     this.store.dispatch(new productActions.LoadProducts());
+
+    this.products$ = this.store.pipe(
+      select(fromProduct.getProducts),
+      takeWhile(() => this.componentActive)
+    );
 
     // this.store
     //   .pipe(
@@ -47,11 +54,6 @@ export class ProductListComponent implements OnInit, OnDestroy {
     //     takeWhile(() => this.componentActive)
     //   )
     //   .subscribe((products: Product[]) => (this.products = products));
-
-    this.products$ = this.store.pipe(
-      select(fromProduct.getProducts),
-      takeWhile(() => this.componentActive)
-    );
 
     // this.productService.getProducts().subscribe({
     //   next: (products: Product[]) => (this.products = products),
