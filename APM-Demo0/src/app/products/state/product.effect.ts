@@ -27,6 +27,7 @@ export class ProductEffects {
     )
   );
 
+  @Effect()
   updateProduct$ = this.actions$.pipe(
     ofType(productActions.ProductActionTypes.UpdateProduct),
     map((action: productActions.UpdateProduct) => action.payload), //to get the product to update
