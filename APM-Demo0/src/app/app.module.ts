@@ -19,6 +19,8 @@ import { UserModule } from "./user/user.module";
 
 import { StoreModule } from "@ngrx/store";
 
+import { EffectsModule } from "@ngrx/effects";
+
 /*Dev Tools */
 
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
@@ -32,6 +34,7 @@ import { environment } from "src/environments/environment";
     UserModule,
     AppRoutingModule,
     StoreModule.forRoot({}),
+    EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({
       name: "APM Ngrx Demo",
       maxAge: 25,
