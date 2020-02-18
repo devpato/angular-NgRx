@@ -12,15 +12,13 @@ export interface ProductState {
   currentProductId: number | null;
   products: Product[];
   error: string;
-  newProduct: Product | null;
 }
 
 const initialState: ProductState = {
   showProductCode: true,
   currentProductId: null,
   products: [],
-  error: "",
-  newProduct: null
+  error: ""
 };
 
 /*Selector */
@@ -135,19 +133,11 @@ export function reducer(
       };
     }
 
-    case ProductActionTypes.CreateProduct: {
-      return {
-        ...state,
-        newProduct: action.payload
-      };
-    }
-
     case ProductActionTypes.CreateProductSuccess: {
       state.products.push(action.payload);
       return {
         ...state,
         products: state.products,
-        newProduct: null,
         error: ""
       };
     }
