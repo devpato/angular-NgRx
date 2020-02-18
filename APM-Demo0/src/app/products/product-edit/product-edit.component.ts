@@ -11,6 +11,7 @@ import { NumberValidators } from "../../shared/number.validator";
 import { Store, select } from "@ngrx/store";
 import * as fromProduct from "../state/product.reducer";
 import * as productActions from "../state/product.actions";
+import { dispatch } from "rxjs/internal/observable/pairs";
 
 @Component({
   selector: "pm-product-edit",
@@ -128,11 +129,7 @@ export class ProductEditComponent implements OnInit, OnDestroy {
   deleteProduct(): void {
     if (this.product && this.product.id) {
       if (confirm(`Really delete the product: ${this.product.productName}?`)) {
-        this.productService.deleteProduct(this.product.id).subscribe({
-          next: () =>
-            this.store.dispatch(new productActions.ClearCurrentProduct()),
-          error: err => (this.errorMessage = err.error)
-        });
+        this.store.dispatch(new productActions.DeleteProduct(this.product.id));
       }
     } else {
       // No need to delete, it was never saved

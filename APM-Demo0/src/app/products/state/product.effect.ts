@@ -47,13 +47,27 @@ export class ProductEffects {
   @Effect()
   createProduct$ = this.actions$.pipe(
     ofType(productActions.ProductActionTypes.CreateProduct),
-    map((action: productActions.CreateProductSuccess) => action.payload), //to get the product to update
+    map((action: productActions.CreateProduct) => action.payload), //to get the product to create
     mergeMap((
       newProduct: Product //we use merge map to handle the 2 observables the one form our action and the one from our service
     ) =>
       this.productService.createProduct(newProduct).pipe(
         map(newProduct => new productActions.CreateProductSuccess(newProduct)),
         catchError(err => of(new productActions.CreateProductFail(err)))
+      )
+    )
+  );
+
+  @Effect()
+  deleteProduct$ = this.actions$.pipe(
+    ofType(productActions.ProductActionTypes.DeleteProduct),
+    map((action: productActions.DeleteProduct) => action.payload), //to get the product to update
+    mergeMap((
+      id: number //we use merge map to handle the 2 observables the one form our action and the one from our service
+    ) =>
+      this.productService.deleteProduct(id).pipe(
+        map(() => new productActions.DeleteProductSuccess(id)),
+        catchError(err => of(new productActions.DeleteProductFail(err)))
       )
     )
   );

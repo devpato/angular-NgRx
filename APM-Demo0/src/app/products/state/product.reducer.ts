@@ -149,6 +149,23 @@ export function reducer(
       };
     }
 
+    case ProductActionTypes.DeleteProductSuccess: {
+      return {
+        ...state,
+        products: state.products.filter(
+          product => product.id !== action.payload
+        ),
+        currentProductId: null
+      };
+    }
+
+    case ProductActionTypes.DeleteProductFail: {
+      return {
+        ...state,
+        error: ""
+      };
+    }
+
     default:
       return state;
   }
