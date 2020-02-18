@@ -88,6 +88,7 @@ export class ProductEditComponent implements OnInit, OnDestroy {
     );
   }
 
+  //add this life cycle hook to listen for and call the patch form method on changes
   ngOnChanges(changes: SimpleChanges): void {
     // patch form with value from the store
     if (changes.selectedProduct) {
